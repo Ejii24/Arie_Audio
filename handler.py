@@ -22,12 +22,13 @@ def load_model():
     hf_token = os.getenv("HF_TOKEN")
     
     logger.info(f"Loading {model_id}...")
-    processor = WhisperProcessor.from_pretrained(model_id, token=hf_token)
+    processor = WhisperProcessor.from_pretrained(model_id, token=hf_token, trust_remote_code=True)
     model = WhisperForConditionalGeneration.from_pretrained(
         model_id,
         torch_dtype=torch.float16,
         device_map="auto",
         token=hf_token,
+        trust_remote_code=True,
     )
     model.eval()
     logger.info("✅ Model loaded")

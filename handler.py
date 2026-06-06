@@ -6,6 +6,7 @@ import io
 import base64
 import librosa
 from transformers import WhisperForConditionalGeneration, WhisperProcessor
+import runpod
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("arie-audio")
@@ -57,3 +58,6 @@ def handler(job):
     except Exception as e:
         logger.error(f"Error: {e}", exc_info=True)
         return {"error": str(e)}
+
+if __name__ == "__main__":
+    runpod.serverless.start({"handler": handler})
